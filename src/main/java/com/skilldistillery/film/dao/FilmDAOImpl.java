@@ -26,6 +26,14 @@ public class FilmDAOImpl implements FilmDAO {
 	ResultSet rs = null;
 	PreparedStatement st = null;
 
+	public FilmDAOImpl() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public Film getFilmByID(int filmID) {
 		try {
@@ -71,8 +79,8 @@ public class FilmDAOImpl implements FilmDAO {
 			String sql = "SELECT * FROM film where lower(film.title) like ? or lower(film.description) like ?";
 
 			st = conn.prepareStatement(sql);
-			st.setString(1, keyword);
-			st.setString(2, keyword);
+			st.setString(1, "%" + keyword + "%");
+			st.setString(2, "%" + keyword + "%");
 
 			rs = st.executeQuery();
 			while (rs.next()) {
@@ -176,7 +184,7 @@ public class FilmDAOImpl implements FilmDAO {
 	@Override
 	public void deleteFilm(int filmID) {
 		String sql = "delete from film where id = ?";
-		
+
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
@@ -204,9 +212,9 @@ public class FilmDAOImpl implements FilmDAO {
 
 	@Override
 	public void updateFilm(Film film) {
-		String sql = "update film set(title = ?, description = ?, release_year = ?, language_id = ?, " +
-				"rental_duration = ?, rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, " +
-				"special_features = ?) where id = ?";
+		String sql = "update film set(title = ?, description = ?, release_year = ?, language_id = ?, "
+				+ "rental_duration = ?, rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, "
+				+ "special_features = ?) where id = ?";
 
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
@@ -241,7 +249,7 @@ public class FilmDAOImpl implements FilmDAO {
 			}
 		}
 	}
-	
+
 //	Alters String to format required for update/insert of MySQL set type. 
 //	Comma separated, no white space, only Strings found in specialFeatures
 	public String formatSpecialFeatures(String sf) {
@@ -256,12 +264,12 @@ public class FilmDAOImpl implements FilmDAO {
 
 		return output.substring(0, output.lastIndexOf(","));
 	}
-	
+
 	public String checkRating(String rating) {
 		if (ratings.contains(rating)) {
 			return rating;
 		}
 		return "0";
 	}
-	
+
 }
