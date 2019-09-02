@@ -20,7 +20,7 @@ public class FilmController {
 	public ModelAndView searchByID(int filmID) {
 		Film film = filmDAO.getFilmByID(filmID);
 		ModelAndView mv = new ModelAndView("WEB-INF/searchResults.jsp");
-		mv.addObject(film);
+		mv.addObject("film", film);
 		return mv;
 	}
 	
@@ -29,6 +29,15 @@ public class FilmController {
 		List<Film> films = filmDAO.getFilmsByKeyword(keyword);
 		ModelAndView mv = new ModelAndView("WEB-INF/searchResults.jsp");
 		mv.addObject("filmList", films);
+		return mv;
+	}
+	
+	@RequestMapping(path = "delete.do", method = RequestMethod.GET, params="filmID")
+	public ModelAndView deleteFilm(int filmID) {
+		boolean isDeleted = filmDAO.deleteFilm(filmID);
+		ModelAndView mv = new ModelAndView("WEB-INF/completedAction.jsp");
+		mv.addObject("isDeleted", isDeleted);
+		mv.addObject("filmID", filmID);
 		return mv;
 	}
 

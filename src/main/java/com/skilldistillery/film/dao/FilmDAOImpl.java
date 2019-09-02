@@ -36,6 +36,7 @@ public class FilmDAOImpl implements FilmDAO {
 
 	@Override
 	public Film getFilmByID(int filmID) {
+System.out.println(1);
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
 
@@ -43,7 +44,7 @@ public class FilmDAOImpl implements FilmDAO {
 
 			st = conn.prepareStatement(sql);
 			st.setInt(1, filmID);
-
+System.out.println(2);
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Film film = new Film(rs.getInt("id"), rs.getString("title"), rs.getString("description"),
@@ -65,7 +66,7 @@ public class FilmDAOImpl implements FilmDAO {
 			}
 
 		}
-
+System.out.println(3);
 		return null;
 	}
 
@@ -182,8 +183,9 @@ public class FilmDAOImpl implements FilmDAO {
 	}
 
 	@Override
-	public void deleteFilm(int filmID) {
+	public boolean deleteFilm(int filmID) {
 		String sql = "delete from film where id = ?";
+		int result = 0;
 
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
@@ -191,7 +193,7 @@ public class FilmDAOImpl implements FilmDAO {
 
 			st = conn.prepareStatement(sql);
 			st.setInt(1, filmID);
-			st.executeUpdate();
+			result = st.executeUpdate();
 
 		} catch (SQLException e) {
 			try {
@@ -208,6 +210,8 @@ public class FilmDAOImpl implements FilmDAO {
 				e.printStackTrace();
 			}
 		}
+		
+		return result == 0 ? false : true;
 	}
 
 	@Override
