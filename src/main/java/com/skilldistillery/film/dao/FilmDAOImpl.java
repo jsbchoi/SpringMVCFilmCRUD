@@ -157,12 +157,15 @@ System.out.println(3);
 			st.setDouble(7, film.getLength());
 			st.setDouble(8, film.getReplacementCost());
 			st.setString(9, checkRating(film.getRating()));
-			st.setString(10, formatSpecialFeatures(film.getSpecial_features()));
+			st.setString(10, film.getSpecial_features());
 			st.executeUpdate();
 			rs = st.getGeneratedKeys();
 			if (rs.next()) {
-				int filmId = rs.getInt(1);
-				System.out.println("New film ID: " + filmId);
+				film.setId(rs.getInt(1));
+				System.out.println("New film ID: " + film.getId());
+			}
+			else {
+				System.out.println("NOT FOUND");
 			}
 		} catch (SQLException e) {
 			try {
@@ -173,7 +176,6 @@ System.out.println(3);
 		} finally {
 			try {
 				conn.commit();
-				rs.close();
 				st.close();
 				conn.close();
 			} catch (SQLException e) {
@@ -234,7 +236,7 @@ System.out.println(3);
 			st.setDouble(7, film.getLength());
 			st.setDouble(8, film.getReplacementCost());
 			st.setString(9, checkRating(film.getRating()));
-			st.setString(10, formatSpecialFeatures(film.getSpecial_features()));
+			st.setString(10, film.getSpecial_features());
 			st.executeUpdate();
 
 		} catch (SQLException e) {
@@ -256,18 +258,18 @@ System.out.println(3);
 
 //	Alters String to format required for update/insert of MySQL set type. 
 //	Comma separated, no white space, only Strings found in specialFeatures
-	public String formatSpecialFeatures(String sf) {
-		String[] features = sf.trim().split("\\s*,\\s*");
-		String output = "";
-
-		for (String feature : features) {
-			if (specialFeatures.contains(feature)) {
-				output += feature + ",";
-			}
-		}
-
-		return output.substring(0, output.lastIndexOf(","));
-	}
+//	public String formatSpecialFeatures(String sf) {
+//		String[] features = sf.trim().split("\\s*,\\s*");
+//		String output = "";
+//
+//		for (String feature : features) {
+//			if (specialFeatures.contains(feature)) {
+//				output += feature + ",";
+//			}
+//		}
+//
+//		return output.substring(0, output.lastIndexOf(","));
+//	}
 
 	public String checkRating(String rating) {
 		if (ratings.contains(rating)) {

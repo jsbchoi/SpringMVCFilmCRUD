@@ -2,6 +2,9 @@ package com.skilldistillery.film.entities;
 
 import java.util.List;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 import com.skilldistillery.film.dao.FilmDAOImpl;
 
 public class Film {
@@ -9,7 +12,11 @@ public class Film {
 	private int id;
 	private String title;
 	private String description;
+	@Min(1888)
+	@Max(2019)
 	private int releaseYear;
+	@Min(1)
+	@Max(6)
 	private int language_id;
 	private int rentalDuration;
 	private double rentalRate;
@@ -33,6 +40,9 @@ public class Film {
 		this.rating = rating;
 		this.special_features = special_features;
 		this.actors = new FilmDAOImpl().getActors(id);
+	}
+
+	public Film() {
 	}
 
 	public int getId() {

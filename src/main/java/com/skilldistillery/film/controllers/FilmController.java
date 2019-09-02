@@ -3,7 +3,10 @@ package com.skilldistillery.film.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,5 +43,22 @@ public class FilmController {
 		mv.addObject("filmID", filmID);
 		return mv;
 	}
+
+	@RequestMapping(path = "add.do", method = RequestMethod.GET)
+	public ModelAndView register() {
+		ModelAndView mv = new ModelAndView("WEB-INF/add.jsp");
+		mv.addObject("film", new Film());
+		return mv;
+	}
+	
+	@RequestMapping(path = "add.do", method = RequestMethod.POST)
+	public String createFilm(@Valid Film film, Errors errors) {
+		if (errors.hasErrors()) {
+			return "WEB-INF/add.jsp";
+		}
+		filmDAO.addFilm(film);
+		return "WEB-INF/addsuccess.jsp";
+	}
+	
 
 }
