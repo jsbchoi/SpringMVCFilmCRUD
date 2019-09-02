@@ -8,7 +8,7 @@
 <title>Film Detail</title>
 </head>
 <body>
-	<a href="index.html">Home</a><br>
+	<a href="index.html">Home</a><br><br>
 
 	<c:if test = "${empty filmList && not empty film}" >
 
@@ -28,7 +28,21 @@
 		No films found
 	</c:if>
 
-	${film }
-	${filmList }
+	<c:choose>
+		<c:when test="${not empty film }">
+			<h2>${film.title }</h2>
+			${film }
+		</c:when>	
+
+		<c:when test="${not empty filmList }">
+			<c:forEach items="${filmList }" var="f">
+				<a href="search.do?filmID=${f.id }">${f.title}</a><br>
+				${f }
+				<br><br>
+			</c:forEach>
+		</c:when>	
+
+	</c:choose>
+	
 </body>
 </html>
