@@ -137,7 +137,7 @@ public class FilmDAOImpl implements FilmDAO {
 	}
 
 	@Override
-	public boolean addFilm(Film film) {
+	public void addFilm(Film film) {
 		String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, "
 				+ "length, replacement_cost, rating, special_features) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
@@ -163,7 +163,6 @@ public class FilmDAOImpl implements FilmDAO {
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
-				return false;
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -172,12 +171,10 @@ public class FilmDAOImpl implements FilmDAO {
 				conn.commit();
 				st.close();
 				conn.close();
-				return true;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		return false;
 	}
 
 	@Override
@@ -213,7 +210,7 @@ public class FilmDAOImpl implements FilmDAO {
 	}
 
 	@Override
-	public boolean updateFilm(Film film) {
+	public void updateFilm(Film film) {
 		String sql = "UPDATE film SET title = ?, description = ?, release_year = ?, rental_duration = ?, rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, special_features = ? WHERE id = ?";
 
 		try {
@@ -236,7 +233,6 @@ public class FilmDAOImpl implements FilmDAO {
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
-				return false;
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -245,12 +241,10 @@ public class FilmDAOImpl implements FilmDAO {
 				rs.close();
 				conn.commit();
 				conn.close();
-				return true;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		return false;
 	}
 	
 	@Override
