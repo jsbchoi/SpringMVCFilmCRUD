@@ -10,7 +10,13 @@
 <title>Add film</title>
 </head>
 <body>
-	<form:form action="add.do" method="POST" modelAttribute="film">
+	<c:choose>
+	<c:when test="${error}">
+		<h3>Error updating film/</h3>
+	</c:when>
+	</c:choose>
+	<form:form action="update.do" method="POST" modelAttribute="film">
+		<input type="hidden" name="id" value="${filmID}">
 		<form:label path="title">Title:</form:label>
 		<form:input path="title" />
 		<br />
@@ -20,10 +26,6 @@
 		<form:label path="releaseYear">Release year:</form:label>
 		<form:input path="releaseYear" />
 		<form:errors path="releaseYear" />
-		<br />
-		<form:label path="language_id">Language id:</form:label>
-		<form:input path="language_id" />
-		<form:errors path="language_id" />
 		<br />
 		<form:label path="rentalDuration">Rental duration:</form:label>
 		<form:input path="rentalDuration" />
@@ -46,7 +48,7 @@
 		<br />
 		<form:checkboxes path="special_features" items="${specialFeatures}" />
 		<br />
-		<span> <input type="submit" value="Submit" />
+		<span> <input type="submit" value="Update" />
 		</span>
 	</form:form>
 </body>

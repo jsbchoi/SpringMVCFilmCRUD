@@ -2,8 +2,6 @@ package com.skilldistillery.film.entities;
 
 import java.util.List;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 
 import com.skilldistillery.film.dao.FilmDAOImpl;
 
@@ -12,11 +10,7 @@ public class Film {
 	private int id;
 	private String title;
 	private String description;
-	@Min(1888)
-	@Max(2019)
 	private int releaseYear;
-	@Min(1)
-	@Max(6)
 	private int language_id;
 	private int rentalDuration;
 	private double rentalRate;
@@ -24,7 +18,8 @@ public class Film {
 	private double replacementCost;
 	private String rating;
 	private String special_features;
-
+	
+	
 	public Film(int id, String title, String description, int releaseYear, int language_id, int rentalDuration,
 			double rentalRate, double length, double replacementCost, String rating, String special_features) {
 		super();
@@ -159,12 +154,9 @@ public class Film {
 		return true;
 	}
 
-	@Override
 	public String toString() {
-		return "id: " + id + ", description: " + description + ", releaseYear: " + releaseYear + ", language_id: "
-				+ language_id + ", rentalDuration: " + rentalDuration + ", rentalRate: " + rentalRate + ", length: "
-				+ length + ", replacementCost: " + replacementCost + ", rating: " + rating + ", special_features: "
-				+ special_features + ", actors:  " + actors;
+		return "Release year: " + getReleaseYear() + " Rating: "
+				+ getRating() + " Description: " + getDescription();
 	}
 
 }

@@ -31,7 +31,14 @@
 	<c:choose>
 		<c:when test="${not empty film }">
 			<h2>${film.title }</h2>
-			${film }
+			<h3>${film}</h3>
+		<h3>Cast:</h3>
+		<ul>
+		<c:forEach items="${actorList}" var="actor">
+			<li>${actor.getFirstName() } ${actor.getLastName() }</li>
+		</c:forEach>
+		</ul>
+		<h3>Category: ${category }</h3>
 		</c:when>	
 
 		<c:when test="${not empty filmList }">
