@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,7 +73,6 @@ public class FilmController {
 
 	@RequestMapping(path = "add.do", method = RequestMethod.POST)
 	public ModelAndView createFilm(@Valid Film film, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "required.title");
 		if (errors.hasErrors()) {
 			return new ModelAndView("WEB-INF/add.jsp");
 		}
@@ -96,13 +94,14 @@ public class FilmController {
 	@RequestMapping(path = "update.do", method = RequestMethod.POST)
 	public ModelAndView update(@Valid Film film, Errors errors) {
 		if (errors.hasErrors()) {
-			return new ModelAndView("WEB-INF/update.jsp").addObject("error", new Boolean(false));
+			return new ModelAndView("WEB-INF/update.jsp");
 		}
 		ModelAndView mv = new ModelAndView("WEB-INF/updateresults.jsp");
 		if (film != null) {
 			mv.addObject("actorList", filmDAO.getActors(film.getId()));
 			mv.addObject("category", filmDAO.getCategoryOfFilm(film.getId()));
 		}
+		filmDAO.updateFilm(film);
 		mv.addObject("film", film);
 		return mv;
 	}

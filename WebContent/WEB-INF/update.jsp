@@ -10,11 +10,6 @@
 <title>Add film</title>
 </head>
 <body>
-	<c:choose>
-	<c:when test="${error}">
-		<h3>Error updating film/</h3>
-	</c:when>
-	</c:choose>
 	<form:form action="update.do" method="POST" modelAttribute="film">
 		<input type="hidden" name="id" value="${filmID}">
 		<form:label path="title">Title:</form:label>
