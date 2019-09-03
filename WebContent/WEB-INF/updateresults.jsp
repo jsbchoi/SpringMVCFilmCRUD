@@ -10,11 +10,11 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${isUpdated }">
+		<c:when test="${error }">
 			<c:choose>
 				<c:when test="${not empty film }">
-					<h1>${film.title} updated successfully!</h1>
-					<h2>${film.title }</h2>
+					<h1>Film #${film.id} updated successfully!</h1>
+					<h2>Title: ${film.title }</h2>
 					<h3>${film}</h3>
 					<h3>Cast:</h3>
 					<ul>

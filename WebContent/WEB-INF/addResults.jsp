@@ -18,7 +18,7 @@
 		<c:when test="${isAdded}">
 			<c:choose>
 				<c:when test="${not empty film }">
-					<h1>${film.title} added successfully!</h1>
+					<h1>Film #${film.id} added successfully!</h1>
 					<h2>${film.title }</h2>
 					<h3>${film}</h3>
 					<h3>Cast:</h3>

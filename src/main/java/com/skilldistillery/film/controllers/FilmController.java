@@ -39,6 +39,7 @@ public class FilmController {
 		if (film != null) {
 			mv.addObject("category", filmDAO.getCategoryOfFilm(film.getId()));
 			mv.addObject("actorList", filmDAO.getActors(film.getId()));
+			mv.addObject("inventory", filmDAO.getInventoryStatusOfFilm(film.getId()));
 		}
 		mv.addObject("film", film);
 		return mv;
@@ -73,10 +74,10 @@ public class FilmController {
 	@RequestMapping(path = "add.do", method = RequestMethod.POST)
 	public ModelAndView createFilm(@Valid Film film, Errors errors) {
 		if (errors.hasErrors()) {
-			return new ModelAndView("WEB-INF/add.jsp").addObject("error", new Boolean(true));
+			return new ModelAndView("WEB-INF/add.jsp").addObject("error", new Boolean(false));
 		}
 		ModelAndView mv = new ModelAndView("WEB-INF/addresults.jsp");
-		mv.addObject("isAdded", filmDAO.addFilm(film));
+		mv.addObject("error", filmDAO.addFilm(film));
 		return mv;
 	}
 
@@ -93,12 +94,15 @@ public class FilmController {
 	@RequestMapping(path = "update.do", method = RequestMethod.POST)
 	public ModelAndView update(@Valid Film film, Errors errors) {
 		if (errors.hasErrors()) {
-			return new ModelAndView("WEB-INF/update.jsp").addObject("error", new Boolean(true));
+			return new ModelAndView("WEB-INF/update.jsp").addObject("error", new Boolean(false));
 		}
 		ModelAndView mv = new ModelAndView("WEB-INF/updateresults.jsp");
-		mv.addObject("actorList", filmDAO.getActors(film.getId()));
+		if (film != null) {
+			mv.addObject("actorList", filmDAO.getActors(film.getId()));
+			mv.addObject("category", filmDAO.getCategoryOfFilm(film.getId()));
+		}
 		mv.addObject("film", film);
-		mv.addObject("isUpdated", filmDAO.updateFilm(film));
+		mv.addObject("error", filmDAO.updateFilm(film));
 		return mv;
 	}
 

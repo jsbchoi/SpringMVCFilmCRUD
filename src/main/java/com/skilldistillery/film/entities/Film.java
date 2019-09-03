@@ -2,13 +2,16 @@ package com.skilldistillery.film.entities;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
 
 import com.skilldistillery.film.dao.FilmDAOImpl;
 
 public class Film {
 	private List<Actor> actors;
 	private int id;
+	@NotNull
 	private String title;
+	@NotNull
 	private String description;
 	private int releaseYear;
 	private int language_id;

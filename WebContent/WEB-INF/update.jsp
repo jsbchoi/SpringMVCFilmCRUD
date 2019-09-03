@@ -36,9 +36,6 @@
 		<form:label path="length">Length:</form:label>
 		<form:input path="length" />
 		<br />
-		<form:label path="length">Length:</form:label>
-		<form:input path="length" />
-		<br />
 		<form:label path="replacementCost">Replacement Cost:</form:label>
 		<form:input path="replacementCost" />
 		<br />

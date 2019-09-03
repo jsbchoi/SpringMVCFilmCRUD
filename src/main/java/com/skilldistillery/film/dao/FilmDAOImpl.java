@@ -307,5 +307,34 @@ public class FilmDAOImpl implements FilmDAO {
 		}
 		return category;
 	} 
+	
+	@Override
+	public List<String> getInventoryStatusOfFilm(int filmId) {
+		if (filmId <= 0) {
+			return null;
+		}
+		List<String> listOfLocations = new ArrayList<>();
+		String sql = "SELECT inventory_item.film_id, inventory_item.store_id, inventory_item.media_condition "
+				+ "FROM inventory_item "
+				+ "WHERE inventory_item.film_id = ?";
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			ResultSet fr = stmt.executeQuery();
+			while (fr.next()) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Film id #").append(filmId).append(" available at store #").append(fr.getString("inventory_item.store_id")).append(" Condition: ").append(fr.getString("inventory_item.media_condition"));
+				listOfLocations.add(sb.toString());
+			}
+			fr.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listOfLocations;
+	}
 
 }

@@ -14,4 +14,5 @@ public interface FilmDAO {
 	public boolean updateFilm(Film film);
 	public String getCategoryOfFilm(int filmId);
 	public String getLanguageOfFilm(int filmId);
+	List<String> getInventoryStatusOfFilm(int filmId);
 }

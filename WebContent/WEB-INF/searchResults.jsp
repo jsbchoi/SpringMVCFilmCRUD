@@ -39,6 +39,9 @@
 		</c:forEach>
 		</ul>
 		<h3>Category: ${category }</h3>
+		<c:forEach items="${inventory }" var="item">
+			<p>${item.toString() }</p>
+		</c:forEach>
 		</c:when>	
 
 		<c:when test="${not empty filmList }">
