@@ -24,7 +24,7 @@
 					<h3>Cast:</h3>
 					<ul>
 						<c:forEach items="${actorList}" var="actor">
-							<li>${actor.getFirstName() }${actor.getLastName() }</li>
+							<li>${actor.getFirstName() } ${actor.getLastName() }</li>
 						</c:forEach>
 					</ul>
 					<h3>Category: ${category }</h3>
