@@ -21,11 +21,15 @@
 		<form:input path="releaseYear" />
 		<form:errors path="releaseYear" />
 		<br />
-		<form:label path="language_id">Language id: </form:label>
-		<form:input path="language_id" />
-		<form:errors path="language_id" />
-		<br>
-		<span>(1: English, 2: Italian, 3: Japanese, 4: Mandarin, 5: French, 6: German)</span>
+		<form:label path="language_id">Language: </form:label>
+		<form:select path="language_id">
+			<form:option value="1">English</form:option>
+			<form:option value="2">Italian</form:option>
+			<form:option value="3">Japanese</form:option>
+			<form:option value="4">Mandarin</form:option>
+			<form:option value="5">French</form:option>
+			<form:option value="6">German</form:option>
+		</form:select>
 		<br />
 		<form:label path="rentalDuration">Rental duration:</form:label>
 		<form:input path="rentalDuration" />

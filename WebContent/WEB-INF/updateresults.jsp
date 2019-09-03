@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Update successful!</title>
+<title>Update results</title>
 </head>
 <body>
 	<c:choose>
